@@ -1,0 +1,17 @@
+<%= if Enum.empty?(@meeting.speakers) do %>
+    <p>Our next speakers TBA</p>
+<% else %>
+    <ul class="list">
+        <%= Enum.map(@meeting.speakers, fn(s) -> %>
+            <li>
+                <a href="<%= s.url %>">
+                    <img class="avatar" src='<%= gravatar_url(s.email) %>', alt="Speaker Image" />
+                    <div class="details">
+                        <div class="name"><%= s.name %></div>
+                        <div class="talk-name"><%= s.title %></div>
+                    </div>
+                </a>
+            </li>
+        <% end) %>
+    </ul>
+<% end %>
