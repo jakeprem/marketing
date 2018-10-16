@@ -1,6 +1,8 @@
 <h2>Listing Speakers</h2>
 
-<span><%= link "New Speaker", to: speaker_path(@conn, :new) %></span>
+<%= if @admin do %>
+  <span><%= link "New Speaker", to: speaker_path(@conn, :new) %></span>
+<%= end %>
 
 <table class="table">
   <thead>
@@ -23,11 +25,13 @@
       <td><%= speaker.email %></td>
       <td><%= speaker.meeting_id %></td>
 
-      <td class="text-right">
-        <span><%= link "Show", to: speaker_path(@conn, :show, speaker), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: speaker_path(@conn, :edit, speaker), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: speaker_path(@conn, :delete, speaker), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-      </td>
+      <%= if @admin do %>
+        <td class="text-right">
+          <span><%= link "Show", to: speaker_path(@conn, :show, speaker), class: "btn btn-default btn-xs" %></span>
+          <span><%= link "Edit", to: speaker_path(@conn, :edit, speaker), class: "btn btn-default btn-xs" %></span>
+          <span><%= link "Delete", to: speaker_path(@conn, :delete, speaker), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+        </td>
+      <%= end %>
     </tr>
 <% end %>
   </tbody>

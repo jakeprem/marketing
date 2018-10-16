@@ -4,9 +4,12 @@ defmodule CbusElixirWeb.SpeakerController do
   alias CbusElixir.App
   alias CbusElixir.App.Speaker
 
+  plug :authenticate, [usernames: ["admin",]] when action in [:index]
+
+
   def index(conn, _params) do
     speakers = App.list_speakers()
-    render(conn, "index.html", speakers: speakers)
+    render(conn, "index.html", speakers: speakers, admin: conn.assigns.admin)
   end
 
   def new(conn, _params) do
@@ -58,5 +61,17 @@ defmodule CbusElixirWeb.SpeakerController do
     conn
     |> put_flash(:info, "Speaker deleted successfully.")
     |> redirect(to: speaker_path(conn, :index))
+  end
+
+  defp authenticate(conn, options) do
+    username = conn
+      |> fetch_query_params()
+      |> Map.get(:query_params)
+      |> Map.get("username")
+
+    isAdmin = username in options[:usernames]
+
+    conn |> assign(:admin, isAdmin)
+
   end
 end
