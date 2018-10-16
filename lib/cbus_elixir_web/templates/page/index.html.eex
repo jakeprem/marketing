@@ -35,7 +35,8 @@
         <div class="next-meeting">
             <h2 class="title myriad">Next Meeting</h2>
             <p>
-                <%= formatted_date(@next_meeting.date) %> at 6pm<br />
+                <%= formatted_date(@next_meeting.date) %> at 6pm
+                <%= link "Register", to: "/registration" %><br />
                 First Tuesday of Every Month
             </p>
         </div>
